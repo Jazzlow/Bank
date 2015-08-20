@@ -1,0 +1,58 @@
+<%- model_class = Bankaccount -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:image_url) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:sort_code) %></th>
+      
+ <th><%= model_class.human_attribute_name(:email) %></th>
+<th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bankaccounts.each do |bankaccount| %>
+     
+ <tr>       
+
+<%if bankaccount.user == current_user || bankaccount.user_id == 3%> 
+ <td><%= link_to bankaccount.id, bankaccount_path(bankaccount) %></td>
+<td>
+        <div class="image">
+            <%= link_to (image_tag bankaccount.image_url, :style => "height:100px; width:100px"), bankaccount %>
+        </div>
+    </td>
+
+
+       
+        <!--<td><%= bankaccount.image_url %></td>-->
+        <td><%= bankaccount.name %></td>
+        <td><%= bankaccount.amount %></td>
+        <td><%= bankaccount.sort_code %></td>
+        <td><%= bankaccount.user.email %></td>
+
+<td><%=l bankaccount.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_bankaccount_path(bankaccount), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      bankaccount_path(bankaccount),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+<%end%>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_bankaccount_path,
+            :class => 'btn btn-primary' %>

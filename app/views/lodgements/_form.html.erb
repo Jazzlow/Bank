@@ -1,0 +1,56 @@
+<%= form_for @lodgement, :html => { :class => "form-horizontal lodgement" } do |f| %>
+
+    <% if @lodgement.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@lodgement.errors.count, "error") %> prohibited this lodgement from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @lodgement.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@lodgement[:name]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%= error_span(@lodgement[:amount]) %>
+  </div>
+ <div class="control-group">
+    <%= f.label :balance, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :balance, :class => 'form-control' %>
+    </div>
+    <%= error_span(@lodgement[:amount]) %>
+  </div>
+  
+
+
+
+<div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%= error_span(@lodgement[:description]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            lodgements_path, :class => 'btn btn-default' %>
+
+<% end %>
